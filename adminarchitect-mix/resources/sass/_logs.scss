@@ -1,0 +1,37 @@
+.badge {
+  padding: 2px 8px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 25px;
+  font-size: 11px;
+}
+.label.info {
+  background: #6bb5b5;
+  color: #fff;
+}
+.label.warning {
+  background: #f7be57;
+}
+.label.critical {
+  background: #de4f4f;
+  color: #fff;
+}
+.label.emergency {
+  background: #ff6060;
+  color: white;
+}
+.label.notice {
+  background: bisque;
+}
+.label.debug {
+  background: #8e8c8c;
+  color: white;
+}
+.label.alert {
+  background: #4ba4ea;
+  color: white;
+}
+.label.error {
+  background: #c36a6a;
+  color: white;
+}

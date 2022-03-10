@@ -1,0 +1,26 @@
+.admin-tabs {
+
+    > .nav.nav-tabs {
+        background-color: #f0f1f4;
+        > li{
+            border-right: 1px solid #9f9f9f;
+            &.active, &:last-child{
+                border: 0;
+            }
+        }
+    }
+
+    > .nav > li{
+
+        background-color: #b5b5b5;
+        box-shadow: 2px -2px 0px 0px #80808063;
+
+        > a {
+            color: hsla(0, 0%, 100%, 0.8);
+        }
+
+    }
+    > .nav > li.active > a{
+         color: #5b6781;
+    }
+}

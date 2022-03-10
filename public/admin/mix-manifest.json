@@ -1,0 +1,18 @@
+{
+    "/vendor.js": "/vendor.js",
+    "/vendor.js.map": "/vendor.js.map",
+    "/app.js": "/app.js",
+    "/app.js.map": "/app.js.map",
+    "/editors/tinymce.js": "/editors/tinymce.js",
+    "/glyphicons.css": "/glyphicons.css",
+    "/app.css": "/app.css",
+    "/vendor.css": "/vendor.css",
+    "/editors/tinymce.js.map": "/editors/tinymce.js.map",
+    "/glyphicons.css.map": "/glyphicons.css.map",
+    "/app.css.map": "/app.css.map",
+    "/vendor.css.map": "/vendor.css.map",
+    "/theme.js": "/theme.js",
+    "/theme.js.map": "/theme.js.map",
+    "/manifest.js": "/manifest.js",
+    "/manifest.js.map": "/manifest.js.map"
+}
