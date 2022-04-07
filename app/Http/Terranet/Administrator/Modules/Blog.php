@@ -50,7 +50,7 @@
         protected $showActions = false;
 
 
-        public function group()
+        public function group(): string
         {
             return "Articles";
         }
@@ -59,7 +59,7 @@
         {
             return 'Blog';
         }
-        public function singular()
+        public function singular(): string
         {
             return 'Blog';
         }
@@ -70,7 +70,16 @@
         {
 
             return $this->scaffoldColumns()
-                ->except(['id', 'extrait', 'texte', 'type', 'date', 'slug', 'categorie_id', 'nom', 'seo_description', 'seo_title'])
+                ->except(['id',
+                    'extrait',
+                    'texte',
+                    'type',
+                    'date',
+                    'slug',
+                    'categorie_id',
+                    'nom',
+                    'seo_description',
+                    'seo_title'])
                 ->add(Date::make('Créer le', 'created_at')->setDateFormat('d/m/Y'))
                 ->updateMany([
                     'slug' => function ($field) {
@@ -151,7 +160,7 @@
 
 
 
-        public function order()
+        public function order(): int
         {
             return 2;
         }
@@ -159,14 +168,13 @@
         public function rules()
         {
             $discovered = $this->scaffoldRules();
-            $discovered = array_merge($discovered, [
+
+            return array_merge($discovered, [
                 'slug' => Str::replaceFirst('required', 'nullable', $discovered['slug'])
             ]);
-
-            return $discovered;
         }
 
-        public function sortable()
+        public function sortable(): array
         {
             return [
 
@@ -180,12 +188,12 @@
             ];
         }
 
-        public function linkAttributes()
+        public function linkAttributes(): array
         {
             return ['icon' => 'fas fa-blog', 'id' => $this->url()];
         }
 
-        public function filters()
+        public function filters(): MutableCollection
         {
             return $this->scaffoldFilters()
                 ->except(['nom', 'slug', 'type'])

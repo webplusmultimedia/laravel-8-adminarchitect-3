@@ -36,9 +36,9 @@
      *
      * @package Terranet\Administrator
      */
-    class Page extends Scaffolding implements Navigable, Filtrable, Editable, Validable, Sortable
+    class Page extends Blog
     {
-        use HasFilters, HasForm, HasSortable, ValidatesForm, AllowFormats, AllowsNavigation;
+
 
         /**
          * The module Eloquent model
@@ -49,7 +49,7 @@
         protected $with = ['media'];
 
 
-        public function group()
+        public function group(): string
         {
             return "Articles";
         }
@@ -59,41 +59,7 @@
             return 'Liste Pages';
         }
 
-        public function columns(): MutableCollection
-        {
 
-            return $this->scaffoldColumns()
-                ->except(['id', 'extrait', 'texte', 'type', 'date', 'slug', 'categorie_id', 'nom', 'seo_description', 'seo_title'])
-                ->add(Date::make('Créer le', 'created_at')->setDateFormat('d/m/Y'))
-                ->updateMany([
-                    'slug' => function ($field) {
-                        return LinkText::make('Lien', 'slug')->setRoute("page.index", ['slug']);
-                    },
-                    'date' => function ($field) {
-                        return Date::make('Date', 'date')->setDateFormat('d/m/Y')->hideOnIndex();
-                    },
-
-                    'etat'  => function ($field) {
-                        return Enum::make('Etat')->setOptions($this->model::ETATS)->palette(['publie' => '#04a5bf', 'brouillon' => "rgb(245, 116, 2)"]);
-                    },
-                    'titre' => function ($field) {
-                        return $field->onlyOnView();
-                    }
-                ])
-                ->add('Nom', function (Text $field) {
-                    return $field->setId('nomTitle');
-                })
-                ->move('created_at', 1)
-                ->move('titre', 3)
-                ->move('etat', 4)
-                ->push(Media::make('images')->setParentModuleName($this->url())->setWidthAndHeightForThumb(80, 50));
-        }
-
-
-        public function viewColumns(): MutableCollection
-        {
-            return $this->columns();
-        }
 
         public function form()
         {
@@ -147,12 +113,12 @@
             return $form;
         }
 
-        public function singular()
+        public function singular(): string
         {
             return 'Vue de la page';
         }
 
-        public function order()
+        public function order():int
         {
             return 1;
         }
@@ -160,14 +126,13 @@
         public function rules()
         {
             $discovered = $this->scaffoldRules();
-            $discovered = array_merge($discovered, [
+
+            return array_merge($discovered, [
                 'slug' => Str::replaceFirst('required', 'nullable', $discovered['slug'])
             ]);
-
-            return $discovered;
         }
 
-        public function sortable()
+        public function sortable():array
         {
             return [
 
@@ -177,12 +142,12 @@
             ];
         }
 
-        public function linkAttributes()
+        public function linkAttributes():array
         {
             return ['icon' => 'fas fa-file-alt', 'id' => $this->url()];
         }
 
-        public function filters()
+        public function filters(): MutableCollection
         {
             return $this->scaffoldFilters()
                 ->except(['nom', 'slug', 'type'])
@@ -195,8 +160,4 @@
             $builder->where('type', Article::TYPE_PAGE);
         }
 
-        public function hideActions()
-        {
-            $this->showActions = false;
-        }
     }

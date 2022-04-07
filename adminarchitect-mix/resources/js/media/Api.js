@@ -4,6 +4,9 @@ import $http from './axios';
 const Api = {
     basedir: window.REQUEST_PATH || '',
 
+
+    segment : 'administration',
+
     /**
      * Create a new directory.
      *
@@ -16,7 +19,7 @@ const Api = {
             name: name,
         };
 
-        return $http().post('/cms/media', payload);
+        return $http().post(`/${Api.segment}/media`, payload);
     },
 
     /**
@@ -33,7 +36,7 @@ const Api = {
             basedir: Api.basedir,
         };
 
-        return $http().post('/cms/media/move', payload);
+        return $http().post(`/${Api.segment}/media/move`, payload);
     },
 
     /**
@@ -45,7 +48,7 @@ const Api = {
     remove(object) {
         let selected = object ? [object] : store.getters['selection/all'];
 
-        return $http().post('/cms/media/remove', {
+        return $http().post(`/${Api.segment}/media/remove`, {
             files: selected.filter(file => file.isFile).map(file => file.basename),
             directories: selected.filter(file => file.isDir).map(file => file.basename),
         }).then(() => {
@@ -61,7 +64,7 @@ const Api = {
     },
 
     rename(from, to) {
-        return $http().post('/cms/media/rename', {from, to});
+        return $http().post(`/${Api.segment}/media/rename`, {from, to});
     },
 };
 
