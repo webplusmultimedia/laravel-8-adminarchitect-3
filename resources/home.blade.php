@@ -454,7 +454,7 @@
                                 <a href="" class="btn btn-default">Buy Now</a>
                             </div>
                             <!--/ .price-box-->
-                            <aside class="note center">Sed iaculis dapibus tellus eget condimentum. Curabitur ut tellus congue, convallis tortor et,</aside>
+                            <aside class="note center">Sfffed iaculis dapibus tellus eget condimentum. Curabitur ut tellus congue, convallis tortor et,</aside>
                         </div>
                         <!--/ .col-md-3-->
                     </div>
