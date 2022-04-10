@@ -24,7 +24,7 @@ class ArticleController extends Controller
         return view('article.blog.liste', compact('page', 'blogs'));
     }
 
-    public function blogDetail($slug)
+    public function blogShow($slug)
     {
         $article = Article::with('media')->blog()->publie()->where('slug', $slug)->firstOrFail();
 

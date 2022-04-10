@@ -1,4 +1,4 @@
-@extends('layouts.website')
+@extends('layouts.app')
 @section('title', e($article->tagTitle))
 @section('description', e($article->tagMetaDescription))
 
@@ -32,9 +32,7 @@
                 <div class="col-md-4">
                     {{ Form::text('telephone',null,['placeholder' => 'Téléphone *']) }}
                 </div><!-- /.col-md-4 -->
-                <div class="col-md-12">
-                    {{ Form::select('subject',$services->pluck('titre','titre')->toArray()+['Autre'=>'Autre'],null,['class'=>'form-control mb10']) }}
-                </div><!-- /.col-md-4 -->
+
                 <div class="col-md-12">
                     {{ Form::textarea('msg',null,['placeholder' => 'Message *']) }}
                     <button type="submit">Envoyer</button>

@@ -30,7 +30,7 @@ class Article extends Model implements HasMedia
     const ETATS =['publie'=>'publie', 'brouillon'=>'brouillon'];
     const TYPE_PAGE = 'page';
     const TYPE_BLOG = 'blog';
-    const TYPE_SERVICE = 'service';
+
 
     const ETAT_PUBLIE = 'publie';
     const ETAT_BROUILLON = 'brouillon';
@@ -93,17 +93,7 @@ class Article extends Model implements HasMedia
         return $query->where('type', self::TYPE_PAGE);
     }
 
-    public function scopeServices($query)
-    {
-        return $query->where('type', self::TYPE_SERVICE);
-    }
 
-    public function scopeCategorieService(Builder $query)
-    {
-        return $query->whereHas('categorie', function($q){
-            $q->where('slug','service');
-        });
-    }
 
     /**
      * @ScopeFilter(name="Publié", icon="far fa-thumbs-up")
