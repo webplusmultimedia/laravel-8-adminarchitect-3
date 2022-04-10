@@ -88,7 +88,7 @@ class Article extends Model implements HasMedia
         return $query->where('type', self::TYPE_BLOG);
     }
 
-    public function scopePages($query)
+    public function scopePage($query)
     {
         return $query->where('type', self::TYPE_PAGE);
     }

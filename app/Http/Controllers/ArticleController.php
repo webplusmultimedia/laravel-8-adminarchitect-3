@@ -10,7 +10,7 @@ class ArticleController extends Controller
 {
     public function index($slug)
     {
-        $article = Article::with('media')->pages()->publie()->where('slug', $slug)->firstOrFail();
+        $article = Article::with('media')->page()->publie()->where('slug', $slug)->firstOrFail();
 
         return view('article.show', compact('article'));
     }
@@ -34,7 +34,7 @@ class ArticleController extends Controller
 
     public function home()
     {
-        $article = Article::where('nom','accueil')->with('media')->firstOrFail();
+        $article = Article::with('media')->page()->where('nom', 'accueil')->firstOrFail();
         return view('home',compact('article'));
     }
 
