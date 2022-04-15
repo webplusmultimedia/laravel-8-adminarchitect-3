@@ -29,7 +29,7 @@
                 <i class="far fa-edit" @click="fuck(file)" data-toggle="modal" :data-target="'#edit-'+id"
                    style="position: absolute;z-index: 103;right: 34px;top: 8px;background-color: #0000008c;padding: 5px;border-radius: 10px;cursor: pointer;"></i>
 
-                <button @click.prevent="detachMedia(file)" class="filepond--file-action-button filepond--action-revert-item-processing"
+                <i @click.prevent="detachMedia(file)" class="filepond--file-action-button filepond--action-revert-item-processing"
                         data-align="right">
                   <svg width="26" height="26" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -37,7 +37,7 @@
                         fill="currentColor" fill-rule="nonzero"></path>
                   </svg>
                   <span>Supprimer</span>
-                </button>
+                </i>
                 <div class="filepond--file-info">
                             <span class="filepond--file-info-main">
                                 {{ file.name }}
