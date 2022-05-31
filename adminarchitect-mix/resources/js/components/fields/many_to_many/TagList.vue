@@ -58,7 +58,7 @@ export default {
         },
         widthSelect: {
             type: Number,
-            default: 600
+            default: 50
 
         }
     },

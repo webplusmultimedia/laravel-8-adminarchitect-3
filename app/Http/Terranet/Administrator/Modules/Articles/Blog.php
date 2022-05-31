@@ -1,18 +1,17 @@
 <?php
 
-    namespace App\Http\Terranet\Administrator\Modules;
+    namespace App\Http\Terranet\Administrator\Modules\Articles;
 
     use App\Models\Article;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Str;
     use Terranet\Administrator\Collection\Mutable as MutableCollection;
     use Terranet\Administrator\Contracts\Module\Editable;
-    use Terranet\Administrator\Contracts\Module\Exportable;
     use Terranet\Administrator\Contracts\Module\Filtrable;
     use Terranet\Administrator\Contracts\Module\Navigable;
     use Terranet\Administrator\Contracts\Module\Sortable;
     use Terranet\Administrator\Contracts\Module\Validable;
-    use Terranet\Administrator\Field\BelongsTo;
+    use Terranet\Administrator\Exception;
     use Terranet\Administrator\Field\Date;
     use Terranet\Administrator\Field\Enum;
     use Terranet\Administrator\Field\Hidden;
@@ -21,13 +20,11 @@
     use Terranet\Administrator\Field\Slug;
     use Terranet\Administrator\Field\Text;
     use Terranet\Administrator\Field\Textarea;
-
     use Terranet\Administrator\Scaffolding;
     use Terranet\Administrator\Traits\Module\AllowFormats;
     use Terranet\Administrator\Traits\Module\AllowsNavigation;
     use Terranet\Administrator\Traits\Module\HasFilters;
     use Terranet\Administrator\Traits\Module\HasForm;
-    use Terranet\Administrator\Traits\Module\HasPartQuerying;
     use Terranet\Administrator\Traits\Module\HasSortable;
     use Terranet\Administrator\Traits\Module\ValidatesForm;
 
@@ -59,13 +56,16 @@
         {
             return 'Blog';
         }
+
         public function singular(): string
         {
             return 'Blog';
         }
 
 
-
+        /**
+         * @throws Exception
+         */
         public function columns(): MutableCollection
         {
 
@@ -102,7 +102,7 @@
                 ->move('created_at', 1)
                 ->move('titre', 3)
                 ->move('etat', 4)
-                ->push(Media::make('images')->setParentModuleName($this->url())->setWidthAndHeightForThumb(80, 50));
+                ->push(Media::make('images')->setParentModuleName($this->url()));
         }
 
 
@@ -111,10 +111,13 @@
             return $this->columns();
         }
 
+        /**
+         * @throws Exception
+         */
         public function form()
         {
             $form = $this->scaffoldForm()
-                ->except(['id', 'categorie_id','nom'])
+                ->except(['id', 'categorie_id', 'nom'])
                 ->update('extrait', function ($field) {
                     return Textarea::make('Extrait', 'extrait')->tinymcemini();
                 })
@@ -142,12 +145,12 @@
                 //->add(BelongsTo::make('Catégorie','categorie')->useForTitle('nom'))
                 ->stack(['etat', 'date'], 'Publication')
                 ->stack(['seo_title', 'seo_description', 'slug'], 'SEO - Référencement')
-                ->push(Media::make('Médias', 'medias')->hideOnCreating())
+                ->push(Media::make('Médias', 'medias')->hideOnCreating()/*->setCustomProperties(['url_url','is_active_checkbox','la_description_textarea','montant_number'])*/)
                 ->move('medias', 'before:publication')
                 ->insert(Media::make('Images Appartement', 'appartement')
                     ->hideOnCreating()
                     ->hideOnFormIf(function (){
-                        if(self::getTheVerb()=='edit' && $this->getFormValues()->nom=='Accueil')
+                        if (self::getTheVerb() === 'edit' && $this->getFormValues()->nom === 'Accueil')
                             return false;
                         return true;
                     })

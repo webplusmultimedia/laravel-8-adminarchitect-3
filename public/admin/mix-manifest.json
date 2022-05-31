@@ -1,8 +1,8 @@
 {
-    "/vendor.js": "/vendor.js",
-    "/vendor.js.map": "/vendor.js.map",
     "/app.js": "/app.js",
     "/app.js.map": "/app.js.map",
+    "/vendor.js": "/vendor.js",
+    "/vendor.js.map": "/vendor.js.map",
     "/editors/tinymce.js": "/editors/tinymce.js",
     "/glyphicons.css": "/glyphicons.css",
     "/app.css": "/app.css",

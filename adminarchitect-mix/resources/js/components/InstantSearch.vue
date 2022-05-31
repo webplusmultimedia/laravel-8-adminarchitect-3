@@ -9,7 +9,7 @@
                 remote
                 :remote-method="lookup"
                 :loading="loading"
-                :style="{width: width +'px'}"
+                :style="{width: width +'%'}"
                 @change="onValueChanged"
                 placeholder="Search"
         >
@@ -30,7 +30,7 @@
             defaultValue: Number | String,
             width: {
                 type: Number,
-                default: 400
+                default: 50
             },
         },
         data() {
@@ -65,6 +65,8 @@
         },
 
         mounted() {
+            if(this.width>100)
+                this.width = 100
             if (this.defaultValue) {
                 this.lookup(this.defaultValue, () => {
                     if (this.items.length) {

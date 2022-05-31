@@ -1,35 +1,19 @@
 <?php
 
-    namespace App\Http\Terranet\Administrator\Modules;
+    namespace App\Http\Terranet\Administrator\Modules\Articles;
 
     use App\Models\Article;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Str;
     use Terranet\Administrator\Collection\Mutable as MutableCollection;
-    use Terranet\Administrator\Contracts\Module\Editable;
-    use Terranet\Administrator\Contracts\Module\Exportable;
-    use Terranet\Administrator\Contracts\Module\Filtrable;
-    use Terranet\Administrator\Contracts\Module\Navigable;
-    use Terranet\Administrator\Contracts\Module\Sortable;
-    use Terranet\Administrator\Contracts\Module\Validable;
-    use Terranet\Administrator\Field\BelongsTo;
+    use Terranet\Administrator\Exception;
     use Terranet\Administrator\Field\Date;
     use Terranet\Administrator\Field\Enum;
     use Terranet\Administrator\Field\Hidden;
-    use Terranet\Administrator\Field\LinkText;
     use Terranet\Administrator\Field\Media;
     use Terranet\Administrator\Field\Slug;
     use Terranet\Administrator\Field\Text;
     use Terranet\Administrator\Field\Textarea;
-
-    use Terranet\Administrator\Scaffolding;
-    use Terranet\Administrator\Traits\Module\AllowFormats;
-    use Terranet\Administrator\Traits\Module\AllowsNavigation;
-    use Terranet\Administrator\Traits\Module\HasFilters;
-    use Terranet\Administrator\Traits\Module\HasForm;
-    use Terranet\Administrator\Traits\Module\HasPartQuerying;
-    use Terranet\Administrator\Traits\Module\HasSortable;
-    use Terranet\Administrator\Traits\Module\ValidatesForm;
 
     /**
      * Administrator Resource Page
@@ -60,7 +44,9 @@
         }
 
 
-
+        /**
+         * @throws Exception
+         */
         public function form()
         {
             $form = $this->scaffoldForm()
@@ -102,7 +88,7 @@
                 ->insert(Media::make('Images Appartement', 'appartement')
                     ->hideOnCreating()
                     ->hideOnFormIf(function (){
-                        if(self::getTheVerb()=='edit' && $this->getFormValues()->nom=='Accueil')
+                        if (self::getTheVerb() === 'edit' && $this->getFormValues()->nom === 'Accueil')
                             return false;
                         return true;
                     })
@@ -121,15 +107,6 @@
         public function order():int
         {
             return 1;
-        }
-
-        public function rules()
-        {
-            $discovered = $this->scaffoldRules();
-
-            return array_merge($discovered, [
-                'slug' => Str::replaceFirst('required', 'nullable', $discovered['slug'])
-            ]);
         }
 
         public function sortable():array
