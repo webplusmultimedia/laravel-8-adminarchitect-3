@@ -181,14 +181,19 @@
         {
             return [
 
-                'created_at',
-                'titre',
+                'titre','created_at',
+
                 /*'categorie' => function ($query, $element, $direction) {
                     return $query->join('post_categories', function ($join) {
                         $join->on('post_categories.id', '=', 'posts.post_category_id');
                     })->orderBy("post_categories.slug", $direction);
                 },*/
             ];
+        }
+
+        public function sortDirection()
+        {
+            return 'asc';
         }
 
         public function linkAttributes(): array

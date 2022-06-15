@@ -85,7 +85,7 @@
                 ->stack(['seo_title', 'seo_description', 'slug'], 'SEO - Référencement')
                 ->push(Media::make('Médias', 'medias')->hideOnCreating())
                 ->move('medias', 'before:publication')
-                ->insert(Media::make('Images Appartement', 'appartement')
+                ->insert(Media::make('Images Slides', 'slides')
                     ->hideOnCreating()
                     ->hideOnFormIf(function (){
                         if (self::getTheVerb() === 'edit' && $this->getFormValues()->nom === 'Accueil')
@@ -112,10 +112,7 @@
         public function sortable():array
         {
             return [
-
-                'created_at',
-                'id',
-                'nom'
+                'nom','created_at',
             ];
         }
 

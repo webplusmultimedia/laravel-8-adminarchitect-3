@@ -75,35 +75,7 @@
                         <modal-header text="Modification des informations de l'image"></modal-header>
                         <input type="hidden">
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label>Titre</label>
-                                <input class="form-control" v-model="proprietes.titre" placeholder="Titre"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Texte alternatif</label>
-                                <input class="form-control" v-model="proprietes.alt" placeholder="Alt"/>
-                            </div>
-
-                            <div :class="property.type==='checkbox'?'checkbox':'form-group'" v-for="(property,index) in getProperties(customProperties)">
-                                <label :for="property.name">
-                                    <input :type="property.type" v-model="proprietes[property.name]"
-                                           :placeholder="property.label" :id="property.name" v-if="property.type==='checkbox'"/>
-                                    {{ property.label }}</label>
-                                <textarea v-model="proprietes[property.name]" rows="6" class="form-control" :id="property.name"
-                                          v-if="property.type==='textarea'"></textarea>
-                                <input :type="property.type" class="form-control" v-model="proprietes[property.name]"
-                                       :placeholder="property.label" :id="property.name" v-else-if="property.type!=='checkbox'"/>
-                            </div>
-
-                            <div class="form-group" v-show="typeform === '1'">
-                                <label>Description</label>
-                                <textarea v-model="proprietes.description" rows="6" class="form-control"></textarea>
-                            </div>
-
-                            <div class="form-group" v-show="typeform === '0'">
-                                <label>Description</label>
-                                <input class="form-control" v-model="proprietes.description" placeholder="Description"/>
-                            </div>
+                            <InputsField  class="form-group" :custom-properties="getProprietes()" :proprietes="proprietes"/>
                         </div>
                         <modal-footer></modal-footer>
                     </div>
@@ -171,15 +143,6 @@ export default {
             queued: 0,
             proprietes: {titre: "", alt: "", description: ''},
             startDrag: null,
-            custom_types: [
-                'textarea',
-                'number',
-                'url',
-                'checkbox'
-
-            ]
-
-
         }
     },
     methods: {
@@ -261,30 +224,9 @@ export default {
         },
 
 
-        /**
-         *
-         * @param {Array} properties
-         * @return {Array<?Object>}
-         */
-        getProperties: function (properties) {
-            let custom_properties = [], custom_types = this.custom_types
-            properties.forEach(function (property) {
-                let type = 'text', label = _str.startCase(property), name = property,
-                    search = custom_types.find(function (type) {
-                        return _str.endsWith(property, '_' + type)
-                    })
-                if (search) {
-                    custom_properties.push({
-                        label: _str.startCase(_str.trimEnd(property, search)),
-                        name: _str.trimEnd(property, search),
-                        type: _str.trimStart(search, '_')
-                    })
-                } else {
-                    custom_properties.push({label, name, type})
-                }
-            })
 
-            return custom_properties;
+        getProprietes : function () {
+            return ['titre','alt', 'description'].concat(this.customProperties)
         },
 
         fuck: function (file) {
@@ -301,7 +243,12 @@ export default {
     created() {
         this.$nextTick(this.fetchMedia)
         this.clearQueue = _debounce(this.clearQueue.bind(this), 500)
+
+
+        /* this.customProprietes.$data = this.customProprietes.$data.concat(this.customProperties)
+         console.log(this.customProperties,this.customProprietes)*/
     },
+
 
 }
 </script>

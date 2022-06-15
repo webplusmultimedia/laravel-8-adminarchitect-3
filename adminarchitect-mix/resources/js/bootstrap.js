@@ -13,7 +13,8 @@ import {
     DropZone,
     InstantSearch,
     TagList,
-    DateTimePicker
+    DateTimePicker,
+    InputsField
 } from './components';
 import {MkDir, Move, Rename} from './components/popups';
 import {ModalHeader, ModalFooter} from './components/partials';
@@ -36,6 +37,7 @@ Vue.use(Dialog);
 Vue.use(DatePicker);
 Vue.use(TimePicker);
 Vue.use(Pagination);
+Vue.use(InputsField);
 
 Vue.component('MediaManager', MediaManager);
 Vue.component('MediaLibrary', MediaLibrary);
@@ -48,6 +50,7 @@ Vue.component('DropZone', DropZone);
 Vue.component('InstantSearch', InstantSearch);
 Vue.component('TagList', TagList);
 Vue.component('DateTimePicker', DateTimePicker);
+Vue.component('InputsField', InputsField);
 
 // Popups
 Vue.component('MakeDirPopup', MkDir);

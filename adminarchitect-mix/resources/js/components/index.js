@@ -9,6 +9,8 @@ import DropZone from './DropZone.vue';
 import InstantSearch from './InstantSearch.vue';
 import TagList from './fields/many_to_many/TagList.vue';
 import DateTimePicker from './fields/DateTimePicker.vue';
+import InputsField from "./fields/InputsField.vue";
+
 
 export {
     MediaManager,
@@ -21,5 +23,6 @@ export {
     DropZone,
     InstantSearch,
     TagList,
-    DateTimePicker
+    DateTimePicker,
+    InputsField,
 }
